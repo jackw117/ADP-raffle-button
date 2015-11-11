@@ -18,14 +18,9 @@
 
     <body>
         <div id="buttonDiv" ng-app="myApp" ng-controller="myCtrl" class="container">
-            <button ng-show="!addNameCheck" type="button" class="btn btn-lg btn-primary">BUTTON</button>
-            <button type="submit" class="btn btn-info" ng-click="addNameCheck = true" ng-hide="addNameCheck">Add a name?</button>
-            <form ng-show="addNameCheck">
-                <label for="addMemberName">Add a member's name...</label>
-                <input id="addMemberName" type="text" placeholder="member name" ng-model="memberName">
-                <input type="password" placeholder="password">
-                <button type="submit" class="btn btn-success" ng-click="addNameCheck = false; addName()">Submit</button>
-            </form>
+            <button type="button" class="btn btn-lg btn-primary" ng-click="getNames()">BUTTON</button>
+            <div id="winner">
+            </div>
         </div>
     </body>
     <script type="text/javascript" src="js/names.js"></script>

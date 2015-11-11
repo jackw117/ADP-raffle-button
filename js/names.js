@@ -3,14 +3,20 @@ Parse.initialize("FTmwn1vs8X04cMm28yqjEsW2cIL3KFjO8ABq8ynS", "eflptiA0tXO9Sox7km
 var Name = Parse.Object.extend('Name');
 var myApp = angular.module('myApp', []);
 
-var myCtrl = myApp.controller('myCtrl', function($scope) {
-	$scope.addNameCheck = false;
+var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
+	$scope.getNames = function() {
+		var query = new Parse.Query(Name);
+		$('#winner').empty();
+		query.find({
+			success:function(results) {
+				$scope.random(results);
+			}
+		});
+	}
 
-	$scope.addName = function() {
-		var newName = new Name();
-		newName.set('name', $scope.memberName)
-		newName.save();
-		console.log($scope.memberName);
+	$scope.random = function(data) {
+		var random = Math.floor(Math.random() * data.length);
+		$('#winner').append("<p class='winner'>" + data[random].get('name') + "</p>");
 	}
 });
 
