@@ -5,20 +5,27 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta name="author" content="Jack Whitesell">
-        <meta name="description" content="A button for determining who guessed first'">
+        <meta name="author" content="Jack Whitesell, George Ng">
+        <meta name="description" content="ADP Prize App'">
 
         <link rel="stylesheet" href="css/main.css">
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
         <script src="//www.parsecdn.com/js/parse-1.6.0.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
 
-        <title>ADP Button</title>
+        <title>ADP Raffle</title>
     </head>
 
     <body>
+        <nav>
+            <ul>
+                <li class="navLink"><a href="#">Home</a></li>
+                <li class="navLink"><a href="">Winner History</a></li>
+                <li class="navLink"><a href="">Login</a></li>
+            </ul>
+        </nav>
         <div id="buttonDiv" ng-app="myApp" ng-controller="myCtrl" class="container">
-            <button type="button" class="btn btn-lg btn-primary" ng-click="getNames()">BUTTON</button>
+            <button type="button" class="btn btn-lg btn-primary" ng-click="getNames()">Who Wins?!</button>
             <div id="winner">
             </div>
         </div>
