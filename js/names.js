@@ -17,7 +17,9 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
 	$scope.random = function(data) {
 		var random = Math.floor(Math.random() * data.length);
 		$('#winner').append("<p class='winner'>" + data[random].get('name') + "</p>" +
-			'<img src="http://media.giphy.com/media/1jQhFdU2XHYD6/giphy.gif">');
+			'<img src="http://i.imgur.com/m0sishw.gif">' + 
+			'<img src="http://boards.3edgy6u.com/tj/src/1399747496000.gif">' + 
+			'<img src="http://media.giphy.com/media/SX3Z7NMCsAu4M/giphy.gif">');
 	}
 });
 
