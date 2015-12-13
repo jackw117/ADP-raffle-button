@@ -1,24 +1,85 @@
-Parse.initialize("FTmwn1vs8X04cMm28yqjEsW2cIL3KFjO8ABq8ynS", "eflptiA0tXO9Sox7kmvfuDM6YgvpiMqlfVeDpjk9");
+var myApp = angular.module('myApp', ['firebase']);
 
-var Name = Parse.Object.extend('Name');
-var myApp = angular.module('myApp', []);
+var myCtrl = myApp.controller('myCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject) {
+	var ref = new Firebase('https://adp-raffle-button.firebaseio.com/');	
+	var membersRef = ref.child("members");
+	$scope.members = $firebaseArray(membersRef);
+	$scope.authObj = $firebaseAuth(ref);
 
-var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
-	$scope.getNames = function() {
-		var query = new Parse.Query(Name);
-		$('#winner').empty();
-		query.find({
-			success:function(results) {
-				$scope.random(results);
-			}
+	$scope.loggedIn = false;
+
+	$scope.membersArray = [];
+
+	var authData = $scope.authObj.$getAuth();
+
+	$scope.signUp = function() {
+		$scope.authObj.$createUser({
+			email: $scope.email,
+			password: $scope.password
+		})
+		.then(function(){
+			$scope.email = "";
+			$scope.password = "";
 		});
 	}
 
-	$scope.random = function(data) {
-		var random = Math.floor(Math.random() * data.length);
-		$('#winner').append("<p class='winner'>" + data[random].get('name') + "</p>" +
-			'<img src="http://i.imgur.com/m0sishw.gif">' + 
-			'<img src="http://boards.3edgy6u.com/tj/src/1399747496000.gif">');
+	$scope.logIn = function() {
+		return $scope.authObj.$authWithPassword({
+			email: $scope.email,
+			password: $scope.password
+		});
+	}
+
+	$scope.signIn = function() {
+		$scope.logIn().then(function(){
+			$scope.loggedIn = true;
+			$scope.email = "";
+			$scope.password = "";
+		});
+	}
+
+	$scope.addName = function() {
+		$scope.members.$add({
+			name: $scope.name,
+			quarter: $scope.quarter
+		})
+		.then(function(){
+			$scope.name = "";
+			$scope.quarter = "";
+		});
+	}
+
+	$scope.addToArray = function() {
+		$scope.members.$loaded().then(function(members){
+			members.forEach(function(data){
+				$scope.membersArray.push(data.name);
+			});
+		})
+	}
+
+	$scope.addToArray();
+	console.log($scope.membersArray)
+
+
+	$scope.getNames = function() {
+		if ($scope.membersArray.length != 0) {
+			var random = Math.floor(Math.random() * $scope.membersArray.length);
+			console.log(random)
+			$scope.winner = $scope.membersArray[random];
+			var index = $scope.membersArray.indexOf($scope.winner);
+			if (index > -1) {
+				$scope.membersArray.splice(index, 1);
+			}
+			console.log($scope.membersArray)
+		} else {
+			$scope.winner = "No more members"
+		}
+		
+	}
+
+	$scope.removeMember = function(member) {
+		$scope.members.$remove(member);
+		var index = $scope.membersArray.indexOf(member);
+		$scope.membersArray.splice(index, 1)
 	}
 });
-

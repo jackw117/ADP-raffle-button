@@ -28,15 +28,6 @@ ul {
 	text-align: center;
 }
 
-.btn-primary {
-	font-size : 3em;
-	font-weight : bold;
-	height : 5em;
-	width : 50%;
-	color : white;
-	background-color : #ffd700;
-	border-color : #ffd700;
-}
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
 	background-color : #c0c0c0;

@@ -8,27 +8,79 @@
         <meta name="author" content="Jack Whitesell, George Ng">
         <meta name="description" content="ADP Prize App'">
 
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+        <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+
         <link rel="stylesheet" href="css/main.css">
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
-        <script src="//www.parsecdn.com/js/parse-1.6.0.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+        <script type="text/javascript" src="js/names.js"></script>
 
         <title>ADP Raffle</title>
     </head>
 
-    <body>
-        <nav>
-            <ul>
-                <li class="navLink"><a href="#">Home</a></li>
-                <li class="navLink"><a href="">Winner History</a></li>
-                <li class="navLink"><a href="">Login</a></li>
-            </ul>
-        </nav>
-        <div id="buttonDiv" ng-app="myApp" ng-controller="myCtrl" class="container">
-            <button type="button" class="btn btn-lg btn-primary" ng-click="getNames()">Who Wins?!</button>
-            <div id="winner">
+    <body ng-app="myApp" ng-controller="myCtrl">
+        <div class="container">
+            <div id="buttonDiv" class="container">
+                <button type="button" class="btn btn-primary" ng-click="getNames()">Who Wins?!</button>
+                <div id="winner">
+                    <p>{{winner}}</p>
+                </div>
+            </div>
+
+            <div ng-hide="signInClick">
+                <button class="btn btn-info" ng-click="signInClick = true">Sign In</button>
+            </div>
+
+            <div ng-show="signInClick && !loggedIn">
+                <form name="signInForm">
+                    <label for="email">Email:</label>
+                    <input id="email" class="form-control" type="email" ng-model="email" required>
+                    <label for="password">Password:</label>
+                    <input id="password" class="form-control" type="password" ng-model="password" required>
+                    <button class="btn btn-primary" ng-disabled="signInForm.$invalid" ng-click="signIn()">Submit</button>
+                    <button class="btn btn-warning" ng-click="signInClick = false">Cancel</button>
+                </form>
+            </div>
+
+            <div ng-show="loggedIn">
+                <div ng-hide="addAdminClick">
+                    <button class="btn btn-info" ng-click="addAdminClick = true">Add New Admin</button>
+                </div>
+
+                <div ng-show="addAdminClick">
+                    <form name="adminForm">
+                        <label for="email">Email:</label>
+                        <input id="email" class="form-control" type="email" ng-model="email" required>
+                        <label for="password">Password:</label>
+                        <input id="password" class="form-control" type="password" ng-model="password" required>
+                        <button class="btn btn-primary" ng-disabled="adminForm.$invalid" ng-click="signUp()">Submit</button>
+                        <button class="btn btn-warning" ng-click="addAdminClick = false">Cancel</button>
+                    </form>
+                </div>
+
+                <div ng-hide="addMemberClick">
+                    <button class="btn btn-info" ng-click="addMemberClick = true">Add Member</button>
+                </div>
+
+                <div ng-show="addMemberClick">
+                    <form name="memberForm">
+                        <label for="name">Name:</label>
+                        <input id="name" class="form-control" type="text" ng-model="name" required>
+                        <label for="quarter">Which quarters are they a member?</label>
+                        <input id="quarter" class="form-control" type="text" ng-model="quarter" required>
+                        <button class="btn btn-primary" ng-disabled="memberForm.$invalid" ng-click="addName()">Submit</button>
+                        <button class="btn btn-warning" ng-click="addMemberClick = false">Cancel</button>
+                    </form>
+                </div>
+
+                <div>
+                    <div ng-repeat="member in members | orderBy: 'quarter'">
+                        <p>{{member.name}}</p>
+                        <p>{{member.quarter}}</p>
+                        <button class="btn btn-danger" ng-click="removeMember(member)">Remove Member</button>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
-    <script type="text/javascript" src="js/names.js"></script>
 </html>
