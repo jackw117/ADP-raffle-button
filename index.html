@@ -22,12 +22,17 @@
         <div class="container">
             <div id="buttonDiv" class="container">
                 <button type="button" class="btn btn-primary" ng-click="getNames()">Who Wins?!</button>
-                <div id="winner">
-                    <p>{{winner}}</p>
+                <div ng-hide="!winnerClick" id="winner">
+                    <img id="gif1" src="gif/ezgif.com-rotate.gif">
+                    <p id="winnerText">{{winner}}</p>
+                    <img id="gif2" src="gif/giphy.gif">
+                    <img src="gif/Ononoki_cute.gif">
+                    <img src="gif/os1BlSb.gif">
+                    <img src="gif/174321664003202.gif">
                 </div>
             </div>
 
-            <div ng-hide="signInClick">
+            <div class="signIn" ng-hide="signInClick">
                 <button class="btn btn-info" ng-click="signInClick = true">Sign In</button>
             </div>
 
@@ -68,6 +73,10 @@
                         <input id="name" class="form-control" type="text" ng-model="name" required>
                         <label for="quarter">Which quarters are they a member?</label>
                         <input id="quarter" class="form-control" type="text" ng-model="quarter" required>
+                        <label for="gif1">Add a link for a gif:</label>
+                        <input id="gif1" class="form-control" type="text" ng-model="gif1" required>
+                        <label for="gif2">Add another gif:</label>
+                        <input id="gif2" class="form-control" type="text" ng-model="gif2" required>
                         <button class="btn btn-primary" ng-disabled="memberForm.$invalid" ng-click="addName()">Submit</button>
                         <button class="btn btn-warning" ng-click="addMemberClick = false">Cancel</button>
                     </form>

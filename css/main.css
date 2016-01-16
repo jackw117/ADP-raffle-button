@@ -2,6 +2,7 @@
 
 button {
 	margin-top : 2em;
+	font-size: 36px;
 }
 
 li {
@@ -28,6 +29,13 @@ ul {
 	text-align: center;
 }
 
+#gif1, #gif2, #winnerText {
+	display: inline;
+}
+
+#winnerText {
+	font-size: 72px;
+}
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
 	background-color : #c0c0c0;
@@ -45,6 +53,10 @@ ul {
 
 .navLink a {
 	color : white;
+}
+
+.signIn {
+	margin-top: 2500px;
 }
 
 .winner {

@@ -7,6 +7,7 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $firebaseAuth, $firebas
 	$scope.authObj = $firebaseAuth(ref);
 
 	$scope.loggedIn = false;
+	$scope.winnerClick = false;
 
 	$scope.membersArray = [];
 
@@ -41,7 +42,9 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $firebaseAuth, $firebas
 	$scope.addName = function() {
 		$scope.members.$add({
 			name: $scope.name,
-			quarter: $scope.quarter
+			quarter: $scope.quarter,
+			gif1: $scope.gif1,
+			gif2: $scope.gif2
 		})
 		.then(function(){
 			$scope.name = "";
@@ -52,7 +55,7 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $firebaseAuth, $firebas
 	$scope.addToArray = function() {
 		$scope.members.$loaded().then(function(members){
 			members.forEach(function(data){
-				$scope.membersArray.push(data.name);
+				$scope.membersArray.push(data);
 			});
 		})
 	}
@@ -63,10 +66,11 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $firebaseAuth, $firebas
 
 	$scope.getNames = function() {
 		if ($scope.membersArray.length != 0) {
-			var random = Math.floor(Math.random() * $scope.membersArray.length);
-			console.log(random)
-			$scope.winner = $scope.membersArray[random];
-			var index = $scope.membersArray.indexOf($scope.winner);
+			$scope.random = Math.floor(Math.random() * $scope.membersArray.length);
+			$scope.winner = $scope.membersArray[$scope.random].name;
+			$scope.gif1 = $scope.membersArray[$scope.random].gif1;
+			$scope.gif2 = $scope.membersArray[$scope.random].gif2;
+			var index = $scope.membersArray.indexOf($scope.membersArray[$scope.random]);
 			if (index > -1) {
 				$scope.membersArray.splice(index, 1);
 			}
@@ -74,6 +78,7 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $firebaseAuth, $firebas
 		} else {
 			$scope.winner = "No more members"
 		}
+		$scope.winnerClick = true;
 		
 	}
 
