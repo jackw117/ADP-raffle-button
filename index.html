@@ -47,65 +47,6 @@
                     <img src="gif/Happy/09931c515059396e1bbd8324a88164662d90287f_hq.gif">
                 </div>
             </div>
-
-            <div class="signIn" ng-hide="signInClick">
-                <button class="btn btn-info" ng-click="signInClick = true">Sign In</button>
-            </div>
-
-            <div ng-show="signInClick && !loggedIn">
-                <form name="signInForm">
-                    <label for="email">Email:</label>
-                    <input id="email" class="form-control" type="email" ng-model="email" required>
-                    <label for="password">Password:</label>
-                    <input id="password" class="form-control" type="password" ng-model="password" required>
-                    <button class="btn btn-primary" ng-disabled="signInForm.$invalid" ng-click="signIn()">Submit</button>
-                    <button class="btn btn-warning" ng-click="signInClick = false">Cancel</button>
-                </form>
-            </div>
-
-            <div ng-show="loggedIn">
-                <div ng-hide="addAdminClick">
-                    <button class="btn btn-info" ng-click="addAdminClick = true">Add New Admin</button>
-                </div>
-
-                <div ng-show="addAdminClick">
-                    <form name="adminForm">
-                        <label for="email">Email:</label>
-                        <input id="email" class="form-control" type="email" ng-model="email" required>
-                        <label for="password">Password:</label>
-                        <input id="password" class="form-control" type="password" ng-model="password" required>
-                        <button class="btn btn-primary" ng-disabled="adminForm.$invalid" ng-click="signUp()">Submit</button>
-                        <button class="btn btn-warning" ng-click="addAdminClick = false">Cancel</button>
-                    </form>
-                </div>
-
-                <div ng-hide="addMemberClick">
-                    <button class="btn btn-info" ng-click="addMemberClick = true">Add Member</button>
-                </div>
-
-                <div ng-show="addMemberClick">
-                    <form name="memberForm">
-                        <label for="name">Name:</label>
-                        <input id="name" class="form-control" type="text" ng-model="name" required>
-                        <label for="quarter">Which quarters are they a member?</label>
-                        <input id="quarter" class="form-control" type="text" ng-model="quarter" required>
-                        <label for="gif1">Add a link for a gif:</label>
-                        <input id="gif1" class="form-control" type="text" ng-model="gif1" required>
-                        <label for="gif2">Add another gif:</label>
-                        <input id="gif2" class="form-control" type="text" ng-model="gif2" required>
-                        <button class="btn btn-primary" ng-disabled="memberForm.$invalid" ng-click="addName()">Submit</button>
-                        <button class="btn btn-warning" ng-click="addMemberClick = false">Cancel</button>
-                    </form>
-                </div>
-
-                <div>
-                    <div ng-repeat="member in members | orderBy: 'quarter'">
-                        <p>{{member.name}}</p>
-                        <p>{{member.quarter}}</p>
-                        <button class="btn btn-danger" ng-click="removeMember(member)">Remove Member</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
 </html>
